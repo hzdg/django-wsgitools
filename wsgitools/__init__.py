@@ -13,7 +13,11 @@ def init_project(project_directory, *args, **kwargs):
         sys.path.append(parent)
 
     # Specify the settings module
-    os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings' % project_module
+    if 'settings' in kwargs:
+        settings_module = kwargs['settings']
+    else:
+        settings_module = '%s.settings' % project_module
+    os.environ['DJANGO_SETTINGS_MODULE'] = settings_module
 
     # Run the monitor
     from django.conf import settings
