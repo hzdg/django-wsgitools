@@ -3,7 +3,7 @@ import os
 import sys
 
 
-def init_project(project_directory, *args, **kwargs):
+def init_project(project_directory, settings_module=None, *args, **kwargs):
     project_directory = os.path.abspath(project_directory)
     project_module = os.path.basename(project_directory)
 
@@ -13,9 +13,7 @@ def init_project(project_directory, *args, **kwargs):
         sys.path.append(parent)
 
     # Specify the settings module
-    if 'settings' in kwargs:
-        settings_module = kwargs['settings']
-    else:
+    if not settings_module:
         settings_module = '%s.settings' % project_module
     os.environ['DJANGO_SETTINGS_MODULE'] = settings_module
 
